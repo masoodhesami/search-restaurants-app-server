@@ -1,10 +1,8 @@
 const Joi = require('joi');
 const express = require('express');
-const logger = require("./logger")
 const app = express();
 
 app.use(express.json());
-app.use(logger);
 
 const restaurants = [
     { id: 1, name: "Botanist", address: "Vancouver, BC, Canada", work_time: "Opens 11:30AM", imgUrl: "https://s26.picofile.com/file/8457696950/res1.jpg", stars: "4" },
@@ -18,6 +16,9 @@ app.get("/", (req, res) => {
     res.send("Searching Restaurants Webapp");
 });
 app.get("/api/restaurants", (req, res) => {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.send(restaurants);
 });
 app.get("/api/restaurants/:id", (req, res) => {
